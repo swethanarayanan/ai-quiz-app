@@ -26,7 +26,7 @@ genai.configure(api_key=API_KEY)
 def generate_questions_gemini(topic):
     """Generates questions using Google Gemini API."""
     try:
-        model = genai.GenerativeModel('gemini-1.5-flash')
+        model = genai.GenerativeModel('gemini-2.5-flash')
         
         prompt = f"""
         Create 5 multiple choice questions about '{topic}'.

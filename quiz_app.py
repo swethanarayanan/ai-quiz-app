@@ -8,6 +8,7 @@ import os
 st.set_page_config(page_title="Gemini Quiz Master", page_icon="🧠")
 
 # 1. SETUP GEMINI API
+# Try getting key from secrets (cloud) or environment (local)
 try:
     API_KEY = st.secrets["GEMINI_API_KEY"]
 except:
@@ -22,7 +23,7 @@ genai.configure(api_key=API_KEY)
 def generate_questions_gemini(topic, difficulty):
     """Generates questions with explanations using Google Gemini API."""
     try:
-        # Using the newer model
+        # Note: If this model version is deprecated, use 'gemini-1.5-flash' or check available models
         model = genai.GenerativeModel('gemini-2.5-flash')
         
         prompt = f"""
@@ -71,7 +72,13 @@ def restart_quiz():
 def submit_answer(option, correct_answer, explanation):
     if option == correct_answer:
         st.session_state.score += 1
-        msg = f"✅ Correct! \n\n{explanation}"
+        # FIXED: Used triple quotes to allow multi-line strings safely
+        msg = f"""✅ Correct! 
+        
+        {explanation}"""
         st.success(msg)
     else:
-        msg = f"
+        # FIXED: Used triple quotes here as well
+        msg = f"""❌ Wrong! The correct answer was: {correct_answer}
+        
+        💡 Reason: {explanation}"""

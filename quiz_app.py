@@ -125,7 +125,7 @@ elif st.session_state.current_question < len(st.session_state.quiz_data):
     keyword = q_data.get('image_keyword', 'abstract')
     
     # --- THIS LINE IS THE FIX: CLEAN URL ONLY ---
-    st.image(f"[https://loremflickr.com/600/300/](https://loremflickr.com/600/300/){keyword}", use_container_width=True)
+    st.image(f"https://loremflickr.com/600/300/{keyword}", use_container_width=True)
     # ---------------------------------------------
     
     st.subheader(q_data['question'])

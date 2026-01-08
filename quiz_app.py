@@ -26,6 +26,7 @@ genai.configure(api_key=API_KEY)
 def generate_questions_gemini(topic):
     """Generates questions using Google Gemini API."""
     try:
+        # UPDATED: Using Gemini 2.5 Flash (Standard for 2026)
         model = genai.GenerativeModel('gemini-2.5-flash')
         
         prompt = f"""
@@ -40,7 +41,7 @@ def generate_questions_gemini(topic):
         response = model.generate_content(prompt)
         text_response = response.text
         
-        # Clean up potential markdown formatting if Gemini adds it
+        # Clean up potential markdown formatting
         text_response = text_response.replace("```json", "").replace("```", "").strip()
         
         return json.loads(text_response)

@@ -30,7 +30,7 @@ def generate_questions_gemini(topic):
         model = genai.GenerativeModel('gemini-2.5-flash')
         
         prompt = f"""
-        Create 5 multiple choice questions about '{topic}'.
+        Create 5 {difficulty} multiple choice questions about '{topic}'.
         Return ONLY a raw JSON array. Do not use Markdown formatting (no ```json blocks).
         Structure:
         [
@@ -83,7 +83,11 @@ st.title("🧠 Gemini Quiz Generator")
 # A. START SCREEN
 if not st.session_state.quiz_started:
     st.markdown("Type a topic, and Gemini will generate a quiz for you.")
+    
     topic = st.text_input("Enter Topic", placeholder="e.g. Cyberpunk, Photosynthesis, Batman")
+
+    # Place this right before the "Generate Quiz" button
+    difficulty = st.selectbox("Select Difficulty", ["Easy", "Medium", "Hard", "Extreme"])
     
     if st.button("Generate Quiz"):
         if topic:
